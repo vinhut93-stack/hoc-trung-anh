@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<title>Học Trung Anh Mỗi Ngày</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap">
+<style>
+/* Layout: one narrow work column, sticky header + tab rail; cards feel like mill tags on cool sheet steel */
+:root{
+  --bg:#F2F4F5; --surface:#FFFFFF; --sunk:#E8ECEE; --ink:#15202A; --muted:#5A6772; --line:#D6DDE2;
+  --zh:#B3322A; --zh-soft:#F6E3E1; --en:#1E5C9E; --en-soft:#E0EAF5;
+  --ok:#2C7A4B; --ok-soft:#DFF0E5; --warn:#A86A12; --warn-soft:#F7ECD8;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-han:"Noto Serif SC","Songti SC","SimSun","PingFang SC",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1418; --surface:#162027; --sunk:#1D2931; --ink:#E4EAEE; --muted:#95A3AD; --line:#2A3740;
+  --zh:#E46A5F; --zh-soft:#3A2220; --en:#72A6E4; --en-soft:#1C2C40;
+  --ok:#5CB883; --ok-soft:#183126; --warn:#D9A04A; --warn-soft:#352A16; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1418; --surface:#162027; --sunk:#1D2931; --ink:#E4EAEE; --muted:#95A3AD; --line:#2A3740;
+  --zh:#E46A5F; --zh-soft:#3A2220; --en:#72A6E4; --en-soft:#1C2C40;
+  --ok:#5CB883; --ok-soft:#183126; --warn:#D9A04A; --warn-soft:#352A16; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:0 48px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent,var(--zh));outline-offset:2px}
+body.lang-zh{--accent:var(--zh);--accent-soft:var(--zh-soft)}
+body.lang-en{--accent:var(--en);--accent-soft:var(--en-soft)}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;padding-block:12px}
+.brand{font-weight:700;font-size:17px;letter-spacing:-.01em;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;font-weight:500;font-size:12px;color:var(--muted);letter-spacing:0}
+.streak{font-family:var(--f-mono);font-size:13px;display:flex;align-items:center;gap:6px;color:var(--muted)}
+.streak b{color:var(--ink);font-size:15px}
+.seg{display:inline-flex;background:var(--sunk);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--accent);box-shadow:0 1px 2px rgb(0 0 0 / .12)}
+.seg button .han{font-family:var(--f-han)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-inline:-4px}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{border:0;background:none;padding:8px 12px 10px;font-weight:600;font-size:14px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+main{display:flex;flex-direction:column;gap:20px;padding-top:20px}
+h2{font-size:20px;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h3{font-size:13px;margin:0;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.mono{font-family:var(--f-mono)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.btn{border:1px solid var(--line);background:var(--surface);padding:9px 14px;border-radius:8px;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.btn:disabled{opacity:.45;cursor:default}
+.chip{border:1px solid var(--line);background:var(--surface);padding:5px 11px;border-radius:999px;font-size:13px;font-weight:500}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.note{font-size:13px;color:var(--muted);background:var(--sunk);border-radius:8px;padding:10px 12px}
+.tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;padding:2px 7px;border-radius:4px;border:1px solid currentColor;text-transform:uppercase}
+.tag.zh{color:var(--zh)}.tag.en{color:var(--en)}
+
+/* today */
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.lane{display:flex;flex-direction:column;gap:12px}
+.lane-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.lane-title{font-weight:700;font-size:16px}
+.lane-title .han{font-family:var(--f-han);font-size:18px}
+.share{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.counts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.count{background:var(--sunk);border-radius:8px;padding:8px 10px}
+.count b{display:block;font-family:var(--f-mono);font-size:20px;font-weight:500;font-variant-numeric:tabular-nums}
+.count span{font-size:12px;color:var(--muted)}
+.meter{height:6px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--lane);border-radius:99px}
+.lane.zh{--lane:var(--zh)} .lane.en{--lane:var(--en)}
+.lane .btn.go{background:var(--lane);border-color:var(--lane);color:#fff;justify-content:center}
+.road{display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:0}
+.step .lv{font-family:var(--f-mono);font-size:12px;color:var(--muted);padding-top:2px}
+.step.now .lv{color:var(--lane);font-weight:500}
+.step b{font-weight:600}
+.step p{font-size:13px;color:var(--muted)}
+.topics{display:flex;flex-direction:column;gap:10px}
+.topic-row{display:grid;grid-template-columns:minmax(0,1fr) 90px 44px;gap:10px;align-items:center;font-size:14px}
+.topic-row .mono{font-size:12px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+
+/* flashcard */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px 20px 20px;min-height:300px;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;text-align:center}
+.card .topic{position:absolute;top:12px;left:14px;font-size:12px;color:var(--muted)}
+.card .state{position:absolute;top:12px;right:14px}
+.term{font-size:clamp(44px,13vw,72px);line-height:1.15;font-weight:700;margin-top:18px;word-break:break-word}
+.term.han{font-family:var(--f-han);font-weight:700;letter-spacing:.04em}
+.term.lat{font-size:clamp(30px,9vw,44px);letter-spacing:-.02em}
+.reveal{display:flex;flex-direction:column;gap:10px;align-items:center;width:100%}
+.py{font-size:20px;color:var(--accent);font-weight:500}
+.hv{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--zh);border:1.5px solid var(--zh);padding:2px 8px;border-radius:4px;transform:rotate(-2deg)}
+.meaning{font-size:19px;font-weight:600}
+.ex{width:100%;text-align:left;background:var(--sunk);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.ex .t{font-size:17px}
+.ex .t.han{font-family:var(--f-han)}
+.ex .p{font-size:13px;color:var(--accent)}
+.ex .v{font-size:14px;color:var(--muted)}
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grades button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 4px;font-weight:600;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.grades button small{font-family:var(--f-mono);font-weight:400;font-size:11px;color:var(--muted)}
+.grades .g1{color:var(--zh)} .grades .g4{color:var(--ok)}
+.progress-line{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-family:var(--f-mono)}
+.speak{border:0;background:var(--accent-soft);color:var(--accent);width:40px;height:40px;border-radius:50%;display:inline-grid;place-items:center;flex:none}
+.speak svg{width:18px;height:18px}
+.done{text-align:center;padding:36px 16px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.done .big{font-family:var(--f-han);font-size:56px;color:var(--accent)}
+
+/* listening */
+.player{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:12px 14px;text-align:left;font-size:15px}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--zh);background:var(--zh-soft)}
+.score{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+
+/* speaking */
+.shadow-text{font-size:24px;line-height:1.45}
+.shadow-text.han{font-family:var(--f-han);font-size:28px}
+.hidden-text{filter:blur(7px);user-select:none}
+.reps{display:flex;gap:8px}
+.reps span{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.reps span.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* chat */
+.scen{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:8px}
+.scen button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.scen button b{font-size:14px}
+.scen button span{font-size:12px;color:var(--muted)}
+.scen button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.log{display:flex;flex-direction:column;gap:12px;min-height:120px}
+.msg{max-width:88%;padding:10px 13px;border-radius:12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.msg.ai{background:var(--surface);border:1px solid var(--line);align-self:flex-start;border-top-left-radius:3px}
+.msg.me{background:var(--accent);color:#fff;align-self:flex-end;border-top-right-radius:3px}
+.msg .t{font-size:16px;word-break:break-word}
+.msg.ai .t.han{font-family:var(--f-han);font-size:18px}
+.msg .p{font-size:13px;color:var(--accent)}
+.msg .v{font-size:13px;color:var(--muted)}
+.msg .fix{margin-top:4px;font-size:13px;background:var(--warn-soft);color:var(--ink);border-radius:6px;padding:7px 9px;border-left:3px solid var(--warn)}
+.msg .fix.good{background:var(--ok-soft);border-left-color:var(--ok)}
+.msg .head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.msg .speak{width:30px;height:30px}
+.compose{display:flex;gap:8px;align-items:flex-end}
+.compose textarea{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;resize:vertical;min-height:46px;max-height:160px}
+.hint{background:var(--accent-soft);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.field{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.field select{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px;color:var(--ink);font-size:14px}
+@media (prefers-reduced-motion:no-preference){.card,.msg{animation:in .18s ease-out}@keyframes in{from{transform:translateY(4px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="bar">
+    <div class="brand">Học Trung Anh Mỗi Ngày<small>Sắt thép · thiết bị · du lịch</small></div>
+    <div class="streak" title="Chuỗi ngày học liên tục"><b id="streakN">0</b> ngày</div>
+    <div class="seg" role="group" aria-label="Ngôn ngữ">
+      <button id="langZh" aria-pressed="true"><span class="han">中文</span></button>
+      <button id="langEn" aria-pressed="false">EN</button>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="today" aria-selected="true">Hôm nay</button>
+    <button role="tab" data-tab="cards" aria-selected="false">Thẻ từ</button>
+    <button role="tab" data-tab="listen" aria-selected="false">Nghe</button>
+    <button role="tab" data-tab="speak" aria-selected="false">Nói</button>
+    <button role="tab" data-tab="chat" aria-selected="false">Hội thoại AI</button>
+    <button role="tab" data-tab="settings" aria-selected="false">Cài đặt</button>
+  </nav>
+</div></header>
+
+<div class="wrap"><main id="view"></main></div>
+
+<script>
+/* ================= CONTENT ================= */
+const TOPICS = {
+  chao:{vi:"Chào hỏi & giới thiệu"},
+  thep:{vi:"Sắt thép"},
+  tb:{vi:"Thiết bị & kỹ thuật"},
+  dt:{vi:"Đàm phán, hợp đồng, giao hàng"},
+  dl:{vi:"Du lịch & công tác"}
+};
+// [hanzi, pinyin, hanViet, nghĩa, topic, câu ví dụ, pinyin ví dụ, nghĩa ví dụ]
+const ZH_RAW = [
+["你好","nǐ hǎo","nhĩ hảo","xin chào","chao","你好，很高兴认识你。","Nǐ hǎo, hěn gāoxìng rènshi nǐ.","Xin chào, rất vui được làm quen với anh."],
+["认识","rènshi","nhận thức","quen biết, làm quen","chao","我们是去年在广州认识的。","Wǒmen shì qùnián zài Guǎngzhōu rènshi de.","Chúng ta quen nhau ở Quảng Châu năm ngoái."],
+["越南","Yuènán","Việt Nam","Việt Nam","chao","我是越南人，在胡志明市工作。","Wǒ shì Yuènán rén, zài Húzhìmíng Shì gōngzuò.","Tôi là người Việt Nam, làm việc ở TP. Hồ Chí Minh."],
+["公司","gōngsī","công ty","công ty","chao","我们公司主要做钢材进口。","Wǒmen gōngsī zhǔyào zuò gāngcái jìnkǒu.","Công ty chúng tôi chủ yếu nhập khẩu thép."],
+["名片","míngpiàn","danh phiến","danh thiếp","chao","这是我的名片，请多关照。","Zhè shì wǒ de míngpiàn, qǐng duō guānzhào.","Đây là danh thiếp của tôi, mong được giúp đỡ."],
+["经理","jīnglǐ","kinh lý","giám đốc, quản lý","chao","王经理是他们的销售经理。","Wáng jīnglǐ shì tāmen de xiāoshòu jīnglǐ.","Giám đốc Vương là giám đốc kinh doanh của họ."],
+["合作","hézuò","hợp tác","hợp tác","chao","希望我们合作愉快！","Xīwàng wǒmen hézuò yúkuài!","Mong chúng ta hợp tác vui vẻ!"],
+["微信","Wēixìn","","WeChat (ứng dụng nhắn tin)","chao","我们加个微信吧。","Wǒmen jiā ge Wēixìn ba.","Mình kết bạn WeChat nhé."],
+["谢谢","xièxie","tạ tạ","cảm ơn","chao","谢谢你的帮助。","Xièxie nǐ de bāngzhù.","Cảm ơn sự giúp đỡ của anh."],
+
+["钢材","gāngcái","cương tài","vật liệu thép","thep","最近钢材价格涨了。","Zuìjìn gāngcái jiàgé zhǎng le.","Gần đây giá thép tăng rồi."],
+["钢板","gāngbǎn","cương bản","thép tấm","thep","这批钢板的厚度是十毫米。","Zhè pī gāngbǎn de hòudù shì shí háomǐ.","Lô thép tấm này dày 10 mm."],
+["钢管","gāngguǎn","cương quản","ống thép","thep","你们有无缝钢管吗？","Nǐmen yǒu wúfèng gāngguǎn ma?","Bên anh có ống thép đúc (không mối hàn) không?"],
+["螺纹钢","luówéngāng","loa văn cương","thép cây vằn (thép gân)","thep","螺纹钢今天多少钱一吨？","Luówéngāng jīntiān duōshao qián yì dūn?","Hôm nay thép gân bao nhiêu tiền một tấn?"],
+["不锈钢","bùxiùgāng","bất tú cương","thép không gỉ (inox)","thep","我们要304不锈钢。","Wǒmen yào sān líng sì bùxiùgāng.","Chúng tôi cần inox 304."],
+["热轧","rèzhá","","cán nóng","thep","我们需要热轧卷板。","Wǒmen xūyào rèzhá juǎnbǎn.","Chúng tôi cần thép cuộn cán nóng."],
+["冷轧","lěngzhá","","cán nguội","thep","冷轧板的表面更光滑。","Lěngzhá bǎn de biǎomiàn gèng guānghuá.","Thép tấm cán nguội có bề mặt nhẵn hơn."],
+["镀锌","dùxīn","","mạ kẽm","thep","镀锌钢管不容易生锈。","Dùxīn gāngguǎn bù róngyì shēngxiù.","Ống thép mạ kẽm không dễ bị gỉ."],
+["吨","dūn","đốn","tấn","thep","我们每个月需要五百吨。","Wǒmen měi ge yuè xūyào wǔbǎi dūn.","Mỗi tháng chúng tôi cần 500 tấn."],
+["规格","guīgé","quy cách","quy cách, kích thước","thep","请把规格发给我。","Qǐng bǎ guīgé fā gěi wǒ.","Vui lòng gửi quy cách cho tôi."],
+["材质","cáizhì","tài chất","mác thép, chất liệu","thep","材质是Q235还是Q355？","Cáizhì shì Q èr sān wǔ háishi Q sān wǔ wǔ?","Mác thép là Q235 hay Q355?"],
+["厚度","hòudù","hậu độ","độ dày","thep","厚度误差是多少？","Hòudù wùchā shì duōshao?","Sai số độ dày là bao nhiêu?"],
+["质保书","zhìbǎoshū","chất bảo thư","chứng chỉ chất lượng (CO/CQ)","thep","每批货都有质保书吗？","Měi pī huò dōu yǒu zhìbǎoshū ma?","Lô hàng nào cũng có chứng chỉ chất lượng chứ?"],
+
+["设备","shèbèi","thiết bị","thiết bị","tb","这台设备是全新的吗？","Zhè tái shèbèi shì quánxīn de ma?","Thiết bị này mới hoàn toàn phải không?"],
+["型号","xínghào","hình hiệu","model, mã máy","tb","这个型号有现货吗？","Zhège xínghào yǒu xiànhuò ma?","Model này có hàng sẵn không?"],
+["参数","cānshù","tham số","thông số kỹ thuật","tb","请把技术参数发给我。","Qǐng bǎ jìshù cānshù fā gěi wǒ.","Vui lòng gửi thông số kỹ thuật cho tôi."],
+["安装","ānzhuāng","an trang","lắp đặt","tb","你们负责安装吗？","Nǐmen fùzé ānzhuāng ma?","Bên anh có chịu trách nhiệm lắp đặt không?"],
+["调试","tiáoshì","điều thí","chạy thử, căn chỉnh","tb","安装调试需要几天？","Ānzhuāng tiáoshì xūyào jǐ tiān?","Lắp đặt và chạy thử mất mấy ngày?"],
+["保修","bǎoxiū","bảo tu","bảo hành","tb","保修期是多长时间？","Bǎoxiūqī shì duō cháng shíjiān?","Thời gian bảo hành là bao lâu?"],
+["配件","pèijiàn","phối kiện","phụ tùng","tb","易损配件好买吗？","Yìsǔn pèijiàn hǎo mǎi ma?","Phụ tùng hao mòn có dễ mua không?"],
+["说明书","shuōmíngshū","thuyết minh thư","sách hướng dẫn","tb","有英文说明书吗？","Yǒu Yīngwén shuōmíngshū ma?","Có sách hướng dẫn tiếng Anh không?"],
+["电压","diànyā","điện áp","điện áp","tb","我们工厂的电压是三百八十伏。","Wǒmen gōngchǎng de diànyā shì sānbǎi bāshí fú.","Điện áp ở nhà máy chúng tôi là 380 V."],
+["故障","gùzhàng","cố chướng","sự cố, hỏng hóc","tb","机器出故障了。","Jīqì chū gùzhàng le.","Máy bị sự cố rồi."],
+["维修","wéixiū","duy tu","sửa chữa","tb","你们可以派工程师来维修吗？","Nǐmen kěyǐ pài gōngchéngshī lái wéixiū ma?","Bên anh có thể cử kỹ sư sang sửa không?"],
+["工程师","gōngchéngshī","công trình sư","kỹ sư","tb","工程师下周到越南。","Gōngchéngshī xià zhōu dào Yuènán.","Kỹ sư tuần sau sang Việt Nam."],
+
+["报价","bàojià","báo giá","báo giá","dt","请给我们报个价。","Qǐng gěi wǒmen bào ge jià.","Vui lòng báo giá cho chúng tôi."],
+["价格","jiàgé","giá cách","giá cả","dt","这个价格太高了。","Zhège jiàgé tài gāo le.","Giá này cao quá."],
+["优惠","yōuhuì","ưu huệ","ưu đãi, giảm giá","dt","量大能优惠吗？","Liàng dà néng yōuhuì ma?","Số lượng lớn có được ưu đãi không?"],
+["合同","hétong","hợp đồng","hợp đồng","dt","我们下周签合同。","Wǒmen xià zhōu qiān hétong.","Tuần sau chúng ta ký hợp đồng."],
+["付款","fùkuǎn","phó khoản","thanh toán","dt","付款方式是什么？","Fùkuǎn fāngshì shì shénme?","Phương thức thanh toán là gì?"],
+["定金","dìngjīn","định kim","tiền đặt cọc","dt","先付百分之三十定金。","Xiān fù bǎi fēn zhī sānshí dìngjīn.","Trả trước 30% tiền cọc."],
+["信用证","xìnyòngzhèng","tín dụng chứng","thư tín dụng (L/C)","dt","我们可以用信用证付款。","Wǒmen kěyǐ yòng xìnyòngzhèng fùkuǎn.","Chúng tôi có thể thanh toán bằng L/C."],
+["交货期","jiāohuòqī","giao hóa kỳ","thời hạn giao hàng","dt","交货期是多久？","Jiāohuòqī shì duō jiǔ?","Thời hạn giao hàng là bao lâu?"],
+["发货","fāhuò","phát hóa","gửi hàng, xuất hàng","dt","你们什么时候发货？","Nǐmen shénme shíhou fāhuò?","Khi nào bên anh gửi hàng?"],
+["运费","yùnfèi","vận phí","cước vận chuyển","dt","运费由谁承担？","Yùnfèi yóu shéi chéngdān?","Ai chịu cước vận chuyển?"],
+["样品","yàngpǐn","dạng phẩm","hàng mẫu","dt","能先寄样品吗？","Néng xiān jì yàngpǐn ma?","Có thể gửi hàng mẫu trước không?"],
+["质量","zhìliàng","chất lượng","chất lượng","dt","质量是最重要的。","Zhìliàng shì zuì zhòngyào de.","Chất lượng là quan trọng nhất."],
+["检验","jiǎnyàn","kiểm nghiệm","kiểm tra, kiểm định","dt","货到以后我们要检验。","Huò dào yǐhòu wǒmen yào jiǎnyàn.","Hàng đến xong chúng tôi phải kiểm tra."],
+["港口","gǎngkǒu","cảng khẩu","cảng","dt","货物运到海防港。","Huòwù yùn dào Hǎifáng Gǎng.","Hàng được chở đến cảng Hải Phòng."],
+
+["机场","jīchǎng","cơ trường","sân bay","dl","去机场要多长时间？","Qù jīchǎng yào duō cháng shíjiān?","Ra sân bay mất bao lâu?"],
+["酒店","jiǔdiàn","tửu điếm","khách sạn","dl","我在酒店大堂等你。","Wǒ zài jiǔdiàn dàtáng děng nǐ.","Tôi đợi anh ở sảnh khách sạn."],
+["多少钱","duōshao qián","","bao nhiêu tiền","dl","这个多少钱？","Zhège duōshao qián?","Cái này bao nhiêu tiền?"],
+["便宜","piányi","tiện nghi","rẻ","dl","能便宜一点吗？","Néng piányi yìdiǎn ma?","Rẻ hơn một chút được không?"],
+["洗手间","xǐshǒujiān","tẩy thủ gian","nhà vệ sinh","dl","请问，洗手间在哪儿？","Qǐngwèn, xǐshǒujiān zài nǎr?","Cho hỏi, nhà vệ sinh ở đâu?"],
+["菜单","càidān","thái đơn","thực đơn","dl","服务员，请给我们菜单。","Fúwùyuán, qǐng gěi wǒmen càidān.","Phục vụ ơi, cho chúng tôi thực đơn."],
+["不辣","bú là","bất lạt","không cay","dl","我要不辣的。","Wǒ yào bú là de.","Tôi muốn món không cay."],
+["买单","mǎidān","mãi đơn","tính tiền","dl","服务员，买单！","Fúwùyuán, mǎidān!","Phục vụ ơi, tính tiền!"],
+["出租车","chūzūchē","xuất tô xa","taxi","dl","帮我叫一辆出租车。","Bāng wǒ jiào yí liàng chūzūchē.","Gọi giúp tôi một chiếc taxi."],
+["地铁站","dìtiězhàn","địa thiết trạm","ga tàu điện ngầm","dl","地铁站离这儿远吗？","Dìtiězhàn lí zhèr yuǎn ma?","Ga tàu điện ngầm có xa đây không?"]
+];
+// [word, IPA, nghĩa, topic, câu ví dụ, nghĩa ví dụ]
+const EN_RAW = [
+["introduce","/ˌɪntrəˈdjuːs/","giới thiệu","chao","Let me introduce myself. I'm from Vietnam.","Cho tôi tự giới thiệu. Tôi đến từ Việt Nam."],
+["business card","/ˈbɪznəs kɑːd/","danh thiếp","chao","Here is my business card.","Đây là danh thiếp của tôi."],
+["colleague","/ˈkɒliːɡ/","đồng nghiệp","chao","This is my colleague from the purchasing team.","Đây là đồng nghiệp của tôi ở bộ phận mua hàng."],
+["partnership","/ˈpɑːtnəʃɪp/","quan hệ hợp tác","chao","We look forward to a long-term partnership.","Chúng tôi mong có quan hệ hợp tác lâu dài."],
+["rebar","/ˈriːbɑː/","thép cây vằn (thép gân)","thep","We need five hundred tons of rebar per month.","Mỗi tháng chúng tôi cần 500 tấn thép gân."],
+["steel plate","/stiːl pleɪt/","thép tấm","thep","The steel plate is ten millimetres thick.","Thép tấm dày 10 mm."],
+["hot-rolled coil","/hɒt rəʊld kɔɪl/","thép cuộn cán nóng","thep","What is your price for hot-rolled coil this week?","Giá thép cuộn cán nóng tuần này của bên anh là bao nhiêu?"],
+["galvanized","/ˈɡælvənaɪzd/","mạ kẽm","thep","Galvanized pipes don't rust easily.","Ống mạ kẽm không dễ bị gỉ."],
+["stainless steel","/ˈsteɪnləs stiːl/","thép không gỉ (inox)","thep","We use grade 304 stainless steel.","Chúng tôi dùng inox mác 304."],
+["tolerance","/ˈtɒlərəns/","dung sai","thep","What is the thickness tolerance?","Dung sai độ dày là bao nhiêu?"],
+["mill test certificate","/mɪl test səˈtɪfɪkət/","chứng chỉ chất lượng nhà máy","thep","Please send the mill test certificate with each shipment.","Vui lòng gửi chứng chỉ chất lượng kèm mỗi lô hàng."],
+["specification","/ˌspesɪfɪˈkeɪʃn/","quy cách, thông số","thep","Please double-check the specifications.","Vui lòng kiểm tra lại quy cách."],
+["equipment","/ɪˈkwɪpmənt/","thiết bị","tb","The equipment arrived at the factory yesterday.","Thiết bị đã về nhà máy hôm qua."],
+["installation","/ˌɪnstəˈleɪʃn/","lắp đặt","tb","Is installation included in the price?","Giá đã bao gồm lắp đặt chưa?"],
+["commissioning","/kəˈmɪʃənɪŋ/","chạy thử, nghiệm thu","tb","Commissioning will take about three days.","Chạy thử sẽ mất khoảng ba ngày."],
+["warranty","/ˈwɒrənti/","bảo hành","tb","The warranty period is twelve months.","Thời gian bảo hành là 12 tháng."],
+["spare parts","/speə pɑːts/","phụ tùng thay thế","tb","Do you keep spare parts in Vietnam?","Bên anh có để sẵn phụ tùng ở Việt Nam không?"],
+["breakdown","/ˈbreɪkdaʊn/","sự cố hỏng máy","tb","We had a breakdown on line two this morning.","Sáng nay dây chuyền số hai bị hỏng."],
+["quotation","/kwəʊˈteɪʃn/","báo giá","dt","Could you send us a quotation?","Anh gửi báo giá cho chúng tôi được không?"],
+["discount","/ˈdɪskaʊnt/","chiết khấu, giảm giá","dt","Can you offer a discount for a larger order?","Đơn hàng lớn hơn có được giảm giá không?"],
+["lead time","/liːd taɪm/","thời gian giao hàng","dt","What is the lead time for this order?","Thời gian giao đơn hàng này là bao lâu?"],
+["deposit","/dɪˈpɒzɪt/","tiền đặt cọc","dt","We will pay a thirty percent deposit.","Chúng tôi sẽ đặt cọc 30%."],
+["letter of credit","/ˈletər əv ˈkredɪt/","thư tín dụng (L/C)","dt","Payment by letter of credit is fine for us.","Thanh toán bằng L/C thì chúng tôi đồng ý."],
+["shipment","/ˈʃɪpmənt/","lô hàng, việc giao hàng","dt","The shipment will leave the port next Monday.","Lô hàng sẽ rời cảng vào thứ Hai tới."],
+["negotiate","/nɪˈɡəʊʃieɪt/","đàm phán","dt","We would like to negotiate the payment terms.","Chúng tôi muốn đàm phán điều khoản thanh toán."],
+["contract","/ˈkɒntrækt/","hợp đồng","dt","Let's sign the contract next week.","Tuần sau mình ký hợp đồng nhé."],
+["boarding pass","/ˈbɔːdɪŋ pɑːs/","thẻ lên máy bay","dl","Please show your boarding pass.","Vui lòng xuất trình thẻ lên máy bay."],
+["check in","/tʃek ɪn/","làm thủ tục nhận phòng","dl","I'd like to check in, please.","Tôi muốn làm thủ tục nhận phòng."],
+["reservation","/ˌrezəˈveɪʃn/","đặt chỗ","dl","I have a reservation under the name Nguyen.","Tôi có đặt chỗ dưới tên Nguyễn."],
+["the bill","/ðə bɪl/","hóa đơn (tính tiền)","dl","Could we have the bill, please?","Cho chúng tôi xin hóa đơn."],
+["directions","/dəˈrekʃnz/","chỉ đường","dl","Could you give me directions to the station?","Anh chỉ đường giúp tôi ra ga được không?"]
+];
+const DECK = {
+  zh: ZH_RAW.map(r=>({id:"zh:"+r[0],term:r[0],py:r[1],hv:r[2],vi:r[3],topic:r[4],ex:r[5],exPy:r[6],exVi:r[7]})),
+  en: EN_RAW.map(r=>({id:"en:"+r[0],term:r[0],py:r[1],vi:r[2],topic:r[3],ex:r[4],exVi:r[5]}))
+};
+const ROAD = {
+  zh:[["HSK 1–2","Giao tiếp sinh tồn","Chào hỏi, giá cả, đi lại, gọi món. Khoảng 300 từ.",0],
+      ["HSK 3","Trao đổi công việc đơn giản","Hỏi quy cách, giao hàng, đọc tin nhắn WeChat. Khoảng 600 từ.",150],
+      ["HSK 4","Làm việc trực tiếp với đối tác","Họp, gọi điện, đọc báo giá và hợp đồng cơ bản. Khoảng 1.200 từ.",400],
+      ["HSK 5–6","Đàm phán tự tin","Thương lượng giá, xử lý khiếu nại, đọc tài liệu kỹ thuật. 2.500 từ trở lên.",900]],
+  en:[["A1–A2","Giao tiếp cơ bản","Giới thiệu, du lịch, hỏi đáp đơn giản.",0],
+      ["B1","Công việc hằng ngày","Email, gọi điện, mô tả sản phẩm và quy cách.",150],
+      ["B2","Họp và đàm phán","Thuyết trình, thương lượng, xử lý sự cố.",400],
+      ["C1","Lưu loát, tự nhiên","Diễn đạt tinh tế, hiểu người bản xứ nói nhanh.",900]]
+};
+const SCEN = {
+  zh:[
+    {id:"price",t:"Hỏi giá thép cuộn",d:"Bạn hỏi giá thép cuộn cán nóng với nhà máy ở Đường Sơn.",role:"王经理, sales manager at a steel mill in Tangshan, China, selling hot-rolled coil"},
+    {id:"terms",t:"Chốt giao hàng & thanh toán",d:"Thương lượng thời hạn giao, tiền cọc, L/C, cảng Hải Phòng.",role:"李经理, export manager of a Chinese steel trading company negotiating delivery time, deposit and L/C"},
+    {id:"repair",t:"Báo máy hỏng",d:"Máy cắt CNC bị lỗi, bạn yêu cầu kỹ sư sang sửa.",role:"张工, after-sales engineer of a Chinese CNC machine maker"},
+    {id:"food",t:"Gọi món ở Quảng Châu",d:"Đi ăn tối với đối tác, gọi món không cay, tính tiền.",role:"a friendly waiter at a Cantonese restaurant in Guangzhou (speaks Mandarin)"},
+    {id:"hotel",t:"Nhận phòng khách sạn",d:"Đến khách sạn, nhận phòng, hỏi đường ra ga tàu.",role:"a front-desk clerk at a business hotel in Shanghai"}],
+  en:[
+    {id:"price",t:"Ask for a steel quote",d:"Hỏi giá thép tấm với nhà cung cấp quốc tế.",role:"Mr. Sharma, sales manager at an international steel supplier"},
+    {id:"terms",t:"Negotiate terms",d:"Thương lượng lead time, đặt cọc, L/C.",role:"Ms. Tan, export manager of a Singapore trading company"},
+    {id:"repair",t:"Report a breakdown",d:"Báo sự cố thiết bị, hỏi bảo hành và phụ tùng.",role:"Mark, service engineer at a German equipment maker's Asia office"},
+    {id:"meet",t:"Meet a new partner",d:"Gặp đối tác lần đầu ở hội chợ, giới thiệu công ty.",role:"Emma, purchasing director at a trade fair booth"},
+    {id:"hotel",t:"Hotel check-in",d:"Nhận phòng và hỏi đường khi đi công tác.",role:"a receptionist at a business hotel in Singapore"}]
+};
+
+/* ================= STATE ================= */
+const LS = "htamn-v1";
+const today = () => new Date().toLocaleDateString("sv");
+const dnum = k => Math.round(Date.parse(k+"T00:00:00Z")/864e5);
+function fresh(){return {settings:{main:"zh",newPerDay:10,rate:1,level:"Mới bắt đầu"},cards:{},days:{},streak:{n:0,last:""},updated:0}}
+let S = fresh();
+try{const raw=localStorage.getItem(LS); if(raw) S=Object.assign(fresh(),JSON.parse(raw));}catch(e){}
+let lang = S.settings.main;
+let db=null, docRef=null, writing=false, pending=false, timer=null;
+
+function save(){
+  S.updated=Date.now();
+  try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}
+  if(!docRef) return;
+  clearTimeout(timer); timer=setTimeout(flush,1200);
+}
+async function flush(){
+  if(!docRef) return;
+  if(writing){pending=true;return}
+  writing=true;
+  try{await docRef.set(JSON.parse(JSON.stringify(S)))}catch(e){}
+  writing=false;
+  if(pending){pending=false;flush()}
+}
+(async()=>{
+  try{
+    if(!window.claude) return;
+    const [d,u]=await Promise.all([claude.use("db"),claude.use("user")]);
+    if(!d||!u) return;
+    const id=await u.id(); if(!id) return;
+    db=d; docRef=db.doc("data/users/"+id+"/progress");
+    const snap=await docRef.get();
+    if(snap.exists){const r=snap.data(); if((r.updated||0)>(S.updated||0)){S=Object.assign(fresh(),JSON.parse(JSON.stringify(r))); lang=S.settings.main; try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){} render()}}
+    else if(S.updated) flush();
+  }catch(e){}
+})();
+
+function dayRec(){const k=today(); if(!S.days[k]) S.days[k]={rev:0,newzh:0,newen:0,listen:0,speak:0,chat:0}; return S.days[k]}
+function touchStreak(){
+  const k=today(); if(S.streak.last===k) return;
+  S.streak.n = (S.streak.last && dnum(k)-dnum(S.streak.last)===1) ? S.streak.n+1 : 1;
+  S.streak.last=k;
+  const keys=Object.keys(S.days).sort(); while(keys.length>90) delete S.days[keys.shift()];
+}
+function streakNow(){ if(!S.streak.last) return 0; return dnum(today())-dnum(S.streak.last)<=1 ? S.streak.n : 0 }
+function share(l){return l===S.settings.main?0.7:0.3}
+function newCap(l){return Math.max(1,Math.round(S.settings.newPerDay*share(l)))}
+function stats(l){
+  const t=dnum(today()), deck=DECK[l]; let due=0,learned=0;
+  for(const c of deck){const s=S.cards[c.id]; if(s){learned++; if(s.due<=t) due++}}
+  const newLeft=Math.max(0,Math.min(newCap(l)-dayRec()["new"+l], deck.length-learned));
+  return {due,learned,newLeft,total:deck.length};
+}
+
+/* ================= SPEECH ================= */
+const synth = window.speechSynthesis;
+let voices=[];
+function loadVoices(){try{voices=synth?synth.getVoices():[]}catch(e){voices=[]}}
+if(synth){loadVoices(); try{synth.onvoiceschanged=loadVoices}catch(e){}}
+function voiceFor(l){
+  const want=l==="zh"?["zh-cn","zh"]:["en-us","en-gb","en"];
+  for(const w of want){const v=voices.find(v=>v.lang.replace("_","-").toLowerCase().startsWith(w)); if(v) return v}
+  return null;
+}
+function say(text,l=lang,slow=false){
+  if(!synth) return;
+  try{
+    synth.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=l==="zh"?"zh-CN":"en-US";
+    const v=voiceFor(l); if(v) u.voice=v;
+    u.rate=(slow?0.65:1)*S.settings.rate;
+    synth.speak(u);
+  }catch(e){}
+}
+const ICON_SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+function speakBtn(text,l,label="Nghe phát âm",slow=false){
+  const b=h("button",{class:"speak","aria-label":label,title:label}); b.innerHTML=ICON_SPK;
+  b.onclick=()=>say(text,l,slow); return b;
+}
+function voiceNote(l){
+  if(!synth) return h("p",{class:"note"},"Trình duyệt này không hỗ trợ đọc thành tiếng. Hãy mở bằng Chrome hoặc Safari.");
+  if(voices.length && !voiceFor(l)) return h("p",{class:"note"}, l==="zh"?"Máy bạn chưa có giọng đọc tiếng Trung. Trên Windows: Cài đặt → Thời gian & ngôn ngữ → Thêm ngôn ngữ Trung (Giản thể). Trên điện thoại thường có sẵn.":"Máy bạn chưa có giọng đọc tiếng Anh.");
+  return null;
+}
+
+/* ================= DOM HELPERS ================= */
+function h(tag,attrs={},...kids){
+  const el=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs||{})){ if(v==null||v===false) continue; if(k.startsWith("on")) el[k]=v; else el.setAttribute(k,v===true?"":v) }
+  for(const k of kids.flat()){ if(k==null||k===false) continue; el.append(k.nodeType?k:document.createTextNode(String(k))) }
+  return el;
+}
+const view=document.getElementById("view");
+let tab="today";
+function setLang(l){lang=l; render()}
+document.getElementById("langZh").onclick=()=>{session=null;setLang("zh")};
+document.getElementById("langEn").onclick=()=>{session=null;setLang("en")};
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab; render(); window.scrollTo({top:0})});
+
+function render(){
+  document.body.className="lang-"+lang;
+  document.getElementById("langZh").setAttribute("aria-pressed",lang==="zh");
+  document.getElementById("langEn").setAttribute("aria-pressed",lang==="en");
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===tab));
+  document.getElementById("streakN").textContent=streakNow();
+  view.replaceChildren(({today:Today,cards:Cards,listen:Listen,speak:Speak,chat:Chat,settings:Settings})[tab]());
+}
+const LN={zh:"Tiếng Trung",en:"Tiếng Anh"};
+
+/* ================= TODAY ================= */
+function Today(){
+  const root=h("div",{class:"stack"});
+  const d=dayRec();
+  root.append(h("div",{class:"stack"},
+    h("h2",{},"Kế hoạch hôm nay"),
+    h("p",{class:"muted"},`Ôn ${d.rev} thẻ · nghe ${d.listen} câu · nói ${d.speak} câu hôm nay. Mỗi ngày 30–45 phút là đủ, quan trọng là đều đặn.`)));
+  const plan=h("div",{class:"plan"});
+  for(const l of [S.settings.main, S.settings.main==="zh"?"en":"zh"]){
+    const st=stats(l), main=l===S.settings.main;
+    const lane=h("section",{class:"panel lane "+l},
+      h("div",{class:"lane-head"},
+        h("div",{class:"lane-title"}, l==="zh"?[h("span",{class:"han"},"中文 "),"Tiếng Trung"]:"English · Tiếng Anh"),
+        h("span",{class:"share"}, main?"CHÍNH · 70%":"PHỤ · 30%")),
+      h("div",{class:"counts"},
+        h("div",{class:"count"},h("b",{},st.due),h("span",{},"thẻ cần ôn")),
+        h("div",{class:"count"},h("b",{},st.newLeft),h("span",{},"từ mới")),
+        h("div",{class:"count"},h("b",{},st.learned),h("span",{},"đã học"))),
+      h("div",{class:"meter","aria-label":`Đã học ${st.learned}/${st.total} từ`},h("i",{style:`width:${Math.round(st.learned/st.total*100)}%`})),
+      h("button",{class:"btn go",onclick:()=>{lang=l;tab="cards";session=null;render()}}, (st.due+st.newLeft)? `Học ${st.due+st.newLeft} thẻ`:"Hôm nay đã xong · Luyện thêm")
+    );
+    plan.append(lane);
+  }
+  root.append(plan);
+
+  root.append(h("div",{class:"row"},
+    h("button",{class:"btn",onclick:()=>{tab="listen";render()}},"Luyện nghe 5 phút"),
+    h("button",{class:"btn",onclick:()=>{tab="speak";render()}},"Nói theo (shadowing)"),
+    h("button",{class:"btn",onclick:()=>{tab="chat";render()}},"Hội thoại với AI")));
+
+  // roadmap
+  const st=stats(lang);
+  const road=h("div",{class:"road"});
+  const steps=ROAD[lang]; let cur=0; steps.forEach((s,i)=>{if(st.learned>=s[3]) cur=i});
+  steps.forEach((s,i)=>road.append(h("div",{class:"step"+(i===cur?" now":"")},
+    h("div",{class:"lv"},s[0]), h("div",{},h("b",{},s[1]+(i===cur?" · bạn đang ở đây":"")),h("p",{},s[2])))));
+  root.append(h("section",{class:"panel lane "+lang+" stack"},
+    h("h3",{},`Lộ trình ${LN[lang]}`), road,
+    h("p",{class:"note"},`Bộ từ hiện có ${st.total} từ chuyên ngành và du lịch. Bộ này sẽ được bổ sung dần theo từng chặng.`)));
+
+  // topics
+  const tp=h("div",{class:"topics"});
+  for(const [k,t] of Object.entries(TOPICS)){
+    const all=DECK[lang].filter(c=>c.topic===k); if(!all.length) continue;
+    const got=all.filter(c=>S.cards[c.id]).length;
+    tp.append(h("div",{class:"topic-row"},h("span",{},t.vi),
+      h("div",{class:"meter lane "+lang},h("i",{style:`width:${Math.round(got/all.length*100)}%`})),
+      h("span",{class:"mono"},`${got}/${all.length}`)));
+  }
+  root.append(h("section",{class:"panel stack"},h("h3",{},"Chủ đề"),tp));
+  return root;
+}
+
+/* ================= FLASHCARDS ================= */
+let session=null, topicFilter="all";
+function buildQueue(){
+  const t=dnum(today()), deck=DECK[lang].filter(c=>topicFilter==="all"||c.topic===topicFilter);
+  const due=deck.filter(c=>S.cards[c.id]&&S.cards[c.id].due<=t).sort((a,b)=>S.cards[a.id].due-S.cards[b.id].due);
+  const left=Math.max(0,newCap(lang)-dayRec()["new"+lang]);
+  const nw=deck.filter(c=>!S.cards[c.id]).slice(0,left);
+  const q=[]; let i=0,j=0; // interleave: 2 reviews then 1 new
+  while(i<due.length||j<nw.length){ if(i<due.length)q.push(due[i++]); if(i<due.length)q.push(due[i++]); if(j<nw.length)q.push(nw[j++]) }
+  return q;
+}
+function extraQueue(){ // practice beyond today's plan: soonest-due learned cards, then more new
+  const deck=DECK[lang].filter(c=>topicFilter==="all"||c.topic===topicFilter);
+  const learned=deck.filter(c=>S.cards[c.id]).sort((a,b)=>S.cards[a.id].due-S.cards[b.id].due).slice(0,10);
+  const nw=deck.filter(c=>!S.cards[c.id]).slice(0,5);
+  return [...nw,...learned];
+}
+function grade(card,g){
+  const t=dnum(today()), d=dayRec(); let s=S.cards[card.id];
+  if(!s){ s={iv:0,ef:2.5,reps:0,lapses:0,due:t}; S.cards[card.id]=s; d["new"+lang]++ }
+  if(g===1){ s.reps=0; s.iv=0; s.ef=Math.max(1.3,s.ef-0.2); s.lapses++; s.due=t }
+  else{
+    if(s.reps===0) s.iv = g===4?3:1;
+    else if(s.reps===1) s.iv = g===2?2:g===3?3:6;
+    else s.iv = Math.max(s.iv+1, Math.round(s.iv*s.ef*(g===2?0.6:g===4?1.3:1)));
+    s.ef = Math.max(1.3, s.ef + (g===2?-0.15:g===4?0.15:0));
+    s.reps++; s.due=t+s.iv;
+  }
+  d.rev++; touchStreak(); save();
+}
+function preview(card,g){
+  const s=S.cards[card.id];
+  if(g===1) return "lại";
+  if(!s||s.reps===0) return (g===4?3:1)+" ngày";
+  if(s.reps===1) return (g===2?2:g===3?3:6)+" ngày";
+  return Math.max(s.iv+1,Math.round(s.iv*s.ef*(g===2?0.6:g===4?1.3:1)))+" ngày";
+}
+function Cards(){
+  const root=h("div",{class:"stack"});
+  if(!session){
+    const chips=h("div",{class:"row"});
+    const mk=(k,label)=>h("button",{class:"chip","aria-pressed":topicFilter===k,onclick:()=>{topicFilter=k;render()}},label);
+    chips.append(mk("all","Tất cả"));
+    for(const [k,t] of Object.entries(TOPICS)) chips.append(mk(k,t.vi));
+    const q=buildQueue();
+    root.append(h("h2",{},`Thẻ từ ${LN[lang]}`), chips);
+    const vn=voiceNote(lang); if(vn) root.append(vn);
+    root.append(h("div",{class:"panel stack"},
+      h("p",{},q.length?`Hôm nay có ${q.length} thẻ (ôn lại xen kẽ từ mới). Xem mặt trước, cố nhớ nghĩa, rồi lật thẻ và tự chấm.`:"Bạn đã hoàn thành phần thẻ của hôm nay cho mục này. Có thể luyện thêm, nhưng nghỉ ngơi cũng giúp nhớ lâu hơn."),
+      h("div",{class:"row"},
+        q.length?h("button",{class:"btn primary",onclick:()=>{session={q,i:0,shown:false,done:0};render()}},"Bắt đầu"):null,
+        h("button",{class:"btn",onclick:()=>{const x=extraQueue(); if(x.length){session={q:x,i:0,shown:false,done:0,extra:true};render()}}},"Luyện thêm"))));
+    root.append(Glossary());
+    return root;
+  }
+  const {q}=session;
+  if(session.i>=q.length){
+    root.append(h("div",{class:"panel done"},
+      h("div",{class:"big"},lang==="zh"?"好！":"Done"),
+      h("h2",{},`Xong ${session.done} lượt`),
+      h("p",{class:"muted"},"Thẻ bạn chấm “Quên” sẽ quay lại sớm. Thẻ nhớ tốt sẽ cách xa dần."),
+      h("button",{class:"btn primary",onclick:()=>{session=null;tab="today";render()}},"Về trang Hôm nay")));
+    return root;
+  }
+  const c=q[session.i], s=S.cards[c.id];
+  root.append(h("div",{class:"progress-line"},h("span",{},`${session.i+1} / ${q.length}`),h("button",{class:"btn ghost",onclick:()=>{session=null;render()}},"Dừng")));
+  const card=h("div",{class:"card"},
+    h("span",{class:"topic"},TOPICS[c.topic].vi),
+    h("span",{class:"state"},h("span",{class:"tag "+lang},s?"ôn lại":"từ mới")),
+    h("div",{class:"term "+(lang==="zh"?"han":"lat")},c.term));
+  if(!session.shown){
+    card.append(h("div",{class:"row",style:"justify-content:center"},speakBtn(c.term,lang)),
+      h("button",{class:"btn primary",style:"margin-top:auto;width:100%;justify-content:center",onclick:()=>{session.shown=true;say(c.term);render()}},"Lật thẻ"));
+    root.append(card);
+  }else{
+    const rv=h("div",{class:"reveal"},
+      h("div",{class:"row",style:"justify-content:center"},h("span",{class:"py"},c.py),speakBtn(c.term,lang)),
+      lang==="zh"&&c.hv?h("span",{class:"hv",title:"Âm Hán Việt"},"HV · "+c.hv):null,
+      h("div",{class:"meaning"},c.vi),
+      h("div",{class:"ex"},
+        h("div",{class:"row",style:"justify-content:space-between;flex-wrap:nowrap"},h("span",{class:"t"+(lang==="zh"?" han":"")},c.ex),speakBtn(c.ex,lang,"Nghe câu ví dụ")),
+        lang==="zh"?h("span",{class:"p"},c.exPy):null,
+        h("span",{class:"v"},c.exVi)));
+    card.append(rv);
+    root.append(card);
+    const gr=h("div",{class:"grades"});
+    [[1,"Quên"],[2,"Khó"],[3,"Nhớ"],[4,"Dễ"]].forEach(([g,l])=>gr.append(h("button",{class:"g"+g,onclick:()=>{
+      grade(c,g); session.done++;
+      if(g===1) session.q.splice(Math.min(session.q.length,session.i+4),0,c);
+      session.i++; session.shown=false; render();
+    }},l,h("small",{},preview(c,g)))));
+    root.append(gr);
+  }
+  return root;
+}
+function Glossary(){
+  const box=h("details",{class:"panel"});
+  box.append(h("summary",{style:"cursor:pointer;font-weight:600"},`Danh sách từ (${DECK[lang].length})`));
+  const list=h("div",{class:"stack",style:"margin-top:12px"});
+  DECK[lang].filter(c=>topicFilter==="all"||c.topic===topicFilter).forEach(c=>list.append(
+    h("div",{class:"row",style:"justify-content:space-between;flex-wrap:nowrap;border-top:1px solid var(--line);padding-top:8px"},
+      h("div",{style:"min-width:0"},h("b",{style:lang==="zh"?"font-family:var(--f-han);font-size:18px":""},c.term+" "),h("span",{class:"muted"},c.py+" · "+c.vi)),
+      speakBtn(c.term,lang))));
+  box.append(list); return box;
+}
+
+/* ================= LISTENING ================= */
+let LQ=null, lScore={r:0,t:0};
+function newListen(){
+  const deck=DECK[lang]; const pick=deck[Math.floor(Math.random()*deck.length)];
+  const others=deck.filter(c=>c!==pick).sort(()=>Math.random()-.5).slice(0,3);
+  LQ={c:pick,opts:[pick,...others].sort(()=>Math.random()-.5),ans:null,lang};
+}
+function Listen(){
+  if(!LQ||LQ.lang!==lang){newListen(); lScore={r:0,t:0}}
+  const c=LQ.c, root=h("div",{class:"stack"});
+  root.append(h("h2",{},`Nghe hiểu ${LN[lang]}`),
+    h("p",{class:"muted"},"Bấm nghe câu, chưa nhìn chữ. Chọn nghĩa đúng. Nghe chậm nếu cần, nhưng thử tốc độ thường trước."));
+  const vn=voiceNote(lang); if(vn) root.append(vn);
+  root.append(h("div",{class:"panel stack"},
+    h("div",{class:"player"},
+      h("button",{class:"btn primary",onclick:()=>say(c.ex,lang)},"▶ Nghe"),
+      h("button",{class:"btn",onclick:()=>say(c.ex,lang,true)},"Nghe chậm")),
+    (()=>{const o=h("div",{class:"opts"}); LQ.opts.forEach(x=>{
+      const cls="opt"+(LQ.ans? (x===c?" right": x===LQ.ans?" wrong":""):"");
+      o.append(h("button",{class:cls,disabled:!!LQ.ans,onclick:()=>{LQ.ans=x; lScore.t++; if(x===c) lScore.r++; dayRec().listen++; touchStreak(); save(); render()}},x.exVi));
+    }); return o})(),
+    LQ.ans?h("div",{class:"ex"},
+      h("span",{class:"t"+(lang==="zh"?" han":"")},c.ex),
+      lang==="zh"?h("span",{class:"p"},c.exPy):null,
+      h("span",{class:"v"},`Từ khóa: ${c.term} — ${c.vi}`)):null,
+    h("div",{class:"row",style:"justify-content:space-between"},
+      h("span",{class:"score"},`Đúng ${lScore.r}/${lScore.t}`),
+      h("button",{class:"btn"+(LQ.ans?" primary":""),onclick:()=>{newListen();render();setTimeout(()=>say(LQ.c.ex,lang),150)}},LQ.ans?"Câu tiếp theo":"Bỏ qua"))));
+  return root;
+}
+
+/* ================= SPEAKING (shadowing) ================= */
+let SP=null;
+function Speak(){
+  const deck=DECK[lang];
+  if(!SP||SP.lang!==lang) SP={lang,i:Math.floor(Math.random()*deck.length),reps:0,hide:false};
+  const c=deck[SP.i], root=h("div",{class:"stack"});
+  root.append(h("h2",{},`Nói theo · Shadowing`),
+    h("p",{class:"muted"},"Nghe câu mẫu, rồi nói to theo ngay, bắt chước cả ngữ điệu. Lặp 3 lần. Lần cuối thử che chữ đi và nói theo trí nhớ."));
+  const vn=voiceNote(lang); if(vn) root.append(vn);
+  const reps=h("div",{class:"reps"}); for(let k=1;k<=3;k++) reps.append(h("span",{class:k<=SP.reps?"on":""},k));
+  root.append(h("div",{class:"panel stack"},
+    h("div",{class:"shadow-text"+(lang==="zh"?" han":"")+(SP.hide?" hidden-text":"")},c.ex),
+    lang==="zh"?h("div",{class:"py"+(SP.hide?" hidden-text":""),style:"font-size:15px"},c.exPy):null,
+    h("div",{class:"muted"},c.exVi),
+    h("div",{class:"row"},
+      h("button",{class:"btn primary",onclick:()=>say(c.ex,lang)},"▶ Nghe mẫu"),
+      h("button",{class:"btn",onclick:()=>say(c.ex,lang,true)},"Nghe chậm"),
+      h("button",{class:"btn ghost",onclick:()=>{SP.hide=!SP.hide;render()}},SP.hide?"Hiện chữ":"Che chữ")),
+    h("div",{class:"row",style:"justify-content:space-between"},
+      reps,
+      h("button",{class:"btn",disabled:SP.reps>=3,onclick:()=>{SP.reps++; if(SP.reps===3){dayRec().speak++;touchStreak();save()} render()}},"Tôi đã nói 1 lần")),
+    SR?MicBox(c):null,
+    h("div",{class:"row"},
+      h("button",{class:"btn"+(SP.reps>=3?" primary":""),onclick:()=>{SP={lang,i:(SP.i+1+Math.floor(Math.random()*(deck.length-1)))%deck.length,reps:0,hide:false};render()}},"Câu khác"))));
+  root.append(h("p",{class:"note"},SR?"Chấm phát âm dùng nhận dạng giọng nói của trình duyệt (tốt nhất trên Chrome). Điểm chỉ mang tính tham khảo: máy nhận đúng chữ nghĩa là người nghe cũng hiểu bạn.":"Trình duyệt này chưa hỗ trợ chấm phát âm. Hãy mở bằng Chrome trên máy tính hoặc Android. Trong lúc đó, bạn có thể ghi âm giọng mình rồi nghe lại so với câu mẫu."));
+  return root;
+}
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+function norm(s,l){ s=s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu,""); return l==="zh"? [...s.replace(/\s/g,"")] : s.split(/\s+/).filter(Boolean) }
+function lcs(a,b){ const d=Array(b.length+1).fill(0); for(const x of a){ let prev=0; for(let j=1;j<=b.length;j++){ const t=d[j]; d[j]= x===b[j-1]? prev+1 : Math.max(d[j],d[j-1]); prev=t } } return d[b.length] }
+function MicBox(c){
+  const out=h("div",{class:"ex",style:SP.heard?"":"display:none"});
+  if(SP.heard){
+    const sc=SP.score, col=sc>=85?"var(--ok)":sc>=60?"var(--warn)":"var(--zh)";
+    out.append(h("span",{class:"mono",style:`color:${col};font-weight:500`},`Điểm: ${sc}/100`),
+      h("span",{class:"t"+(lang==="zh"?" han":"")},"Máy nghe được: "+(SP.heard||"…")),
+      h("span",{class:"v"},sc>=85?"Rất tốt! Người bản xứ sẽ hiểu bạn.":sc>=60?"Khá ổn. Nghe chậm lại câu mẫu và chú ý những chữ bị nghe sai.":"Chưa rõ. Nghe chậm, nói chậm từng cụm rồi thử lại."));
+  }
+  const btn=h("button",{class:"btn primary",onclick:()=>{
+    try{
+      const r=new SR(); r.lang=lang==="zh"?"zh-CN":"en-US"; r.interimResults=false; r.maxAlternatives=3;
+      btn.disabled=true; btn.textContent="Đang nghe… hãy nói";
+      r.onresult=e=>{
+        const target=norm(c.ex,lang); let best="",bs=0;
+        for(const alt of e.results[0]){ const g=norm(alt.transcript,lang); const s=Math.round(200*lcs(target,g)/(target.length+g.length||1)); if(s>=bs){bs=s;best=alt.transcript} }
+        SP.heard=best; SP.score=bs; if(SP.reps<3){SP.reps++; if(SP.reps===3){dayRec().speak++;touchStreak();save()}}
+      };
+      r.onerror=e=>{SP.heard=e.error==="not-allowed"?"(Chưa cho phép dùng micro. Bấm biểu tượng ổ khóa trên thanh địa chỉ để bật.)":"(Không nghe rõ, thử lại nhé.)"; SP.score=0};
+      r.onend=()=>render();
+      r.start();
+    }catch(e){btn.disabled=false; btn.textContent="Nói vào micro để chấm"}
+  }},"Nói vào micro để chấm");
+  return h("div",{class:"stack"},btn,out);
+}
+
+/* ================= AI CHAT ================= */
+let sampleFn, sampleReady=false, sampleBlocked=false;
+(async()=>{try{ if(window.claude){ sampleFn=await claude.use("sample") } }catch(e){} sampleReady=true; if(tab==="chat") render()})();
+let CH={zh:{scen:null,turns:[],busy:false,hint:null},en:{scen:null,turns:[],busy:false,hint:null}};
+let ctl=null;
+function rules(sc){
+  const zh=lang==="zh";
+  return `You are a role-play partner helping a Vietnamese adult practise ${zh?"Mandarin Chinese (simplified characters)":"English"}. The learner works in steel and industrial-equipment trading and is at level: ${S.settings.level}.
+Scenario: ${sc.d}
+You play: ${sc.role}. The learner plays the Vietnamese customer/visitor. Stay in character.
+Keep each reply to 1–3 short sentences. Match the learner's level but use real trade terms naturally. Ask a question to keep the conversation going.
+The learner may write in ${zh?"Chinese (characters or pinyin)":"English"}, or in Vietnamese when stuck. Always reply in character in ${zh?"Chinese":"English"}.
+Reply in EXACTLY this format, each label at the start of its own line, no markdown, nothing else:
+REPLY: <your in-character reply>
+${zh?"PINYIN: <pinyin with tone marks for REPLY>\n":""}VI: <Vietnamese translation of REPLY>
+FIX: <in Vietnamese. If the learner's last message had mistakes, was unnatural, or was in Vietnamese, give the correct natural ${zh?"Chinese (with pinyin)":"English"} version and a one-line reason. Otherwise write exactly: Tốt>`;
+}
+function parse(text){
+  const get=k=>{const m=text.match(new RegExp("^"+k+":\\s*([\\s\\S]*?)(?=^\\s*(?:REPLY|PINYIN|VI|FIX|SAY):|$(?![\\s\\S]))","m")); return m?m[1].trim():""};
+  const r={reply:get("REPLY")||get("SAY"),py:get("PINYIN"),vi:get("VI"),fix:get("FIX")};
+  if(!r.reply&&!r.vi) r.reply=text.trim();
+  return r;
+}
+function errCopy(e){
+  const c=e&&e.code;
+  if(c==="not_granted"||c==="sampling_disabled"||c==="not_declared"||c==="capability_disabled"){sampleBlocked=true; return "Tính năng AI chưa được cho phép trong lần mở này."}
+  if(c==="rate_limited") return "Bạn gửi hơi nhanh hoặc đã chạm giới hạn sử dụng. Đợi một lát rồi thử lại.";
+  if(c==="session_expired") return "Phiên đăng nhập đã hết. Hãy đăng nhập lại Claude.";
+  if(c==="refused") return "AI không trả lời câu này. Thử diễn đạt khác.";
+  return "Kết nối bị gián đoạn. Bấm gửi lại.";
+}
+async function ask(extraUser){
+  const st=CH[lang]; if(st.busy) return;
+  const sc=SCEN[lang].find(s=>s.id===st.scen);
+  if(extraUser) st.turns.push({role:"user",content:extraUser,me:true});
+  const ai={role:"assistant",content:"",pending:true}; st.turns.push(ai); st.busy=true; st.hint=null; render();
+  ctl=new AbortController();
+  const msgs=[{role:"user",content:rules(sc)},{role:"user",content:"(Bắt đầu: hãy mở đầu cuộc hội thoại.)"}];
+  st.turns.filter(t=>!t.pending).slice(-16).forEach(t=>msgs.push({role:t.role,content:t.content}));
+  if(msgs[msgs.length-1].role!=="user") msgs.push({role:"user",content:"(Tiếp tục.)"});
+  try{
+    const r=await sampleFn(msgs,{modelTier:"quick",cache:false,signal:ctl.signal,onText:({text})=>{ai.content=text;updatePending(ai)}});
+    ai.content=r.text; ai.pending=false;
+    dayRec().chat++; touchStreak(); save();
+  }catch(e){
+    st.turns.pop();
+    if(e&&e.code!=="cancelled") st.error=errCopy(e);
+  }
+  st.busy=false; render();
+  const last=st.turns[st.turns.length-1];
+  if(last&&last.role==="assistant"&&S.settings.autoSpeak!==false) say(parse(last.content).reply,lang);
+}
+function updatePending(ai){
+  const el=document.getElementById("pendingMsg"); if(!el) return;
+  const p=parse(ai.content); el.querySelector(".t").textContent=p.reply||"…";
+}
+async function hint(){
+  const st=CH[lang]; if(st.busy) return; st.busy=true; st.hint={loading:true}; render();
+  const sc=SCEN[lang].find(s=>s.id===st.scen);
+  const convo=st.turns.map(t=>(t.role==="user"?"LEARNER: ":"PARTNER: ")+(t.role==="user"?t.content:parse(t.content).reply)).join("\n");
+  const zh=lang==="zh";
+  const prompt=`A Vietnamese learner (level: ${S.settings.level}) is practising ${zh?"Mandarin Chinese":"English"} in this role-play: ${sc.d}
+Conversation so far:
+${convo||"(nothing yet)"}
+Suggest ONE natural, short reply the learner could say next, at their level.
+Answer in EXACTLY this format, nothing else:
+SAY: <the reply in ${zh?"Chinese characters":"English"}>
+${zh?"PINYIN: <pinyin with tone marks>\n":""}VI: <Vietnamese meaning>`;
+  try{ const r=await sampleFn(prompt,{modelTier:"quick",cache:false}); st.hint=parse(r.text) }
+  catch(e){ st.hint=null; if(e&&e.code!=="cancelled") st.error=errCopy(e) }
+  st.busy=false; render();
+}
+function Chat(){
+  const st=CH[lang], root=h("div",{class:"stack"});
+  root.append(h("h2",{},`Hội thoại AI · ${LN[lang]}`),
+    h("p",{class:"muted"},"Chọn một tình huống. AI đóng vai đối tác, trả lời kèm phiên âm và nghĩa, đồng thời sửa câu của bạn. Bí quá thì gõ tiếng Việt hoặc bấm “Gợi ý”."));
+  if(!sampleReady){ root.append(h("p",{class:"note"},"Đang kết nối AI…")); return root }
+  if(!sampleFn||sampleBlocked){ root.append(h("p",{class:"note"},(window.claude?"Tính năng hội thoại AI cần bạn cho phép dùng AI trong Claude.":"Hội thoại AI sẽ được bật ở bước tiếp theo, khi kết nối app với AI qua API key. Các phần Thẻ từ, Nghe, Nói đã dùng được ngay."))); return root }
+  const grid=h("div",{class:"scen"});
+  SCEN[lang].forEach(sc=>grid.append(h("button",{"aria-pressed":st.scen===sc.id,disabled:st.busy,onclick:()=>{ if(st.scen===sc.id) return; st.scen=sc.id; st.turns=[]; st.hint=null; st.error=null; ask() }},h("b",{},sc.t),h("span",{},sc.d))));
+  root.append(grid);
+  if(!st.scen) return root;
+  const log=h("div",{class:"log panel"});
+  st.turns.forEach(t=>{
+    if(t.role==="user"){ log.append(h("div",{class:"msg me"},h("span",{class:"t"},t.content))); return }
+    const p=parse(t.content);
+    if(t.pending){ log.append(h("div",{class:"msg ai",id:"pendingMsg"},h("span",{class:"t"+(lang==="zh"?" han":"")},p.reply||"Đang nghĩ…"))); return }
+    const good=!p.fix||/^tốt\.?$/i.test(p.fix.trim());
+    log.append(h("div",{class:"msg ai"},
+      h("div",{class:"head"},h("span",{class:"t"+(lang==="zh"?" han":"")},p.reply),speakBtn(p.reply,lang)),
+      p.py?h("span",{class:"p"},p.py):null,
+      p.vi?h("span",{class:"v"},p.vi):null,
+      st.turns.indexOf(t)>0&&p.fix?h("div",{class:"fix"+(good?" good":"")},good?"Câu của bạn ổn.":"Sửa: "+p.fix):null));
+  });
+  root.append(log);
+  if(st.error) root.append(h("p",{class:"note"},st.error));
+  if(st.hint) root.append(st.hint.loading?h("div",{class:"hint"},"Đang tìm gợi ý…"):h("div",{class:"hint"},
+    h("div",{class:"head row",style:"justify-content:space-between;flex-wrap:nowrap"},h("span",{class:"t"+(lang==="zh"?" han":""),style:"font-size:17px"},st.hint.reply),speakBtn(st.hint.reply,lang)),
+    st.hint.py?h("span",{class:"p",style:"color:var(--accent);font-size:13px"},st.hint.py):null,
+    h("span",{class:"muted",style:"font-size:13px"},st.hint.vi)));
+  const ta=h("textarea",{id:"chatIn",rows:"2",placeholder:lang==="zh"?"Gõ tiếng Trung, pinyin hoặc tiếng Việt…":"Type in English (or Vietnamese if stuck)…",disabled:st.busy});
+  const send=()=>{const v=ta.value.trim(); if(!v) return; st.error=null; ask(v)};
+  ta.onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();send()}};
+  root.append(h("div",{class:"compose"},ta,h("button",{class:"btn primary",disabled:st.busy,onclick:send},"Gửi")));
+  root.append(h("div",{class:"row"},
+    h("button",{class:"btn",disabled:st.busy,onclick:hint},"Gợi ý câu trả lời"),
+    st.busy?h("button",{class:"btn ghost",onclick:()=>ctl&&ctl.abort()},"Dừng"):null,
+    h("button",{class:"btn ghost",disabled:st.busy,onclick:()=>{st.turns=[];st.hint=null;st.error=null;ask()}},"Bắt đầu lại")));
+  return root;
+}
+
+/* ================= SETTINGS ================= */
+function Settings(){
+  const st=S.settings, root=h("div",{class:"stack"});
+  const sel=(id,label,val,opts,on)=>h("label",{class:"field",for:id},label,
+    (()=>{const s=h("select",{id}); opts.forEach(([v,t])=>{const o=h("option",{value:v},t); if(String(v)===String(val)) o.selected=true; s.append(o)}); s.onchange=()=>on(s.value); return s})());
+  root.append(h("h2",{},"Cài đặt"),
+    h("div",{class:"panel stack"},
+      sel("setMain","Ngôn ngữ chính (70% thời gian)",st.main,[["zh","Tiếng Trung"],["en","Tiếng Anh"]],v=>{st.main=v;save();render()}),
+      sel("setNew","Số từ mới mỗi ngày (tổng cả hai thứ tiếng)",st.newPerDay,[[6,"6 · nhẹ nhàng"],[10,"10 · vừa phải"],[15,"15 · tăng tốc"],[20,"20 · chuyên sâu"]],v=>{st.newPerDay=+v;save();render()}),
+      sel("setRate","Tốc độ giọng đọc",st.rate,[[0.8,"Chậm"],[1,"Bình thường"],[1.15,"Nhanh"]],v=>{st.rate=+v;save()}),
+      sel("setLevel","Trình độ (để AI nói cho vừa sức)",st.level,[["Mới bắt đầu","Mới bắt đầu"],["Sơ trung cấp","Sơ trung cấp"],["Trung cấp","Trung cấp"],["Khá","Khá"]],v=>{st.level=v;save()}),
+      sel("setAuto","Tự đọc to câu trả lời của AI",st.autoSpeak===false?"0":"1",[["1","Bật"],["0","Tắt"]],v=>{st.autoSpeak=v==="1";save()})),
+    h("p",{class:"note"}, docRef?"Tiến độ được lưu vào tài khoản Claude của bạn, mở ở máy khác vẫn còn.":"Tiến độ đang được lưu trên trình duyệt này."));
+  const confirmBox=h("div",{class:"row"});
+  const ask0=()=>{confirmBox.replaceChildren(h("span",{class:"muted"},"Xóa hết tiến độ học?"),
+    h("button",{class:"btn",style:"color:var(--zh)",onclick:()=>{const keep=S.settings; S=fresh(); S.settings=keep; save(); render()}},"Xóa"),
+    h("button",{class:"btn ghost",onclick:()=>confirmBox.replaceChildren(btn0)},"Hủy"))};
+  const btn0=h("button",{class:"btn ghost",onclick:ask0},"Xóa tiến độ và học lại từ đầu");
+  confirmBox.append(btn0);
+  if(!window.claude){
+    const msg=h("span",{class:"muted",style:"font-size:13px"});
+    const file=h("input",{type:"file",id:"importFile",accept:".json,application/json",hidden:true});
+    file.onchange=()=>{const f=file.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{try{const d=JSON.parse(rd.result); if(!d.cards||!d.settings) throw 0; S=Object.assign(fresh(),d); lang=S.settings.main; save(); render()}catch(e){msg.textContent="File không đúng định dạng sao lưu của app."}}; rd.readAsText(f)};
+    root.append(h("div",{class:"panel stack"},h("h3",{},"Sao lưu tiến độ"),
+      h("p",{class:"muted",style:"font-size:13px"},"Bản offline lưu tiến độ trong trình duyệt. Nếu xóa dữ liệu trình duyệt hoặc đổi máy, tiến độ sẽ mất. Thỉnh thoảng hãy tải file sao lưu, khi cần thì nạp lại."),
+      h("div",{class:"row"},
+        h("button",{class:"btn",onclick:()=>{const a=h("a",{href:URL.createObjectURL(new Blob([JSON.stringify(S)],{type:"application/json"})),download:"tien-do-hoc-"+today()+".json"}); document.body.append(a); a.click(); a.remove(); msg.textContent="Đã tải file sao lưu."}},"Tải file sao lưu"),
+        h("button",{class:"btn",onclick:()=>file.click()},"Nạp file sao lưu"),file),msg));
+  }
+  root.append(confirmBox);
+  return root;
+}
+
+render();
+</script>
+
+</body>
+</html>
