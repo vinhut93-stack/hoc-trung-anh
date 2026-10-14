@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#B3322A">
 <style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 </head>
@@ -621,16 +622,19 @@ function voiceFor(l){
 let audioEl=null;
 function sayOnline(text,l,slow){
   try{
-    if(!audioEl){audioEl=new Audio();audioEl.preload="auto"}
+    if(!audioEl){audioEl=new Audio();audioEl.preload="auto";try{audioEl.referrerPolicy="no-referrer"}catch(e){}}
     const tl=l==="zh"?"zh-CN":"en",parts=[]; let buf="";
     for(const ch of text){buf+=ch; if(buf.length>=180||(/[。！？.!?，,；;]/.test(ch)&&buf.length>60)){parts.push(buf);buf=""}}
     if(buf.trim()) parts.push(buf);
+    const srcs=q=>{const e=encodeURIComponent(q); const a=["https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl="+tl+"&ttsspeed="+(slow?"0.4":"1")+"&q="+e];
+      a.push("https://dict.youdao.com/dictvoice?le="+(l==="zh"?"zh":"eng")+"&audio="+e); return a};
     let i=0;
-    const next=()=>{ if(i>=parts.length) return;
-      audioEl.src="https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl="+tl+"&ttsspeed="+(slow?"0.4":"1")+"&q="+encodeURIComponent(parts[i++]);
-      audioEl.playbackRate=slow?1:S.settings.rate; audioEl.onended=next;
-      const p=audioEl.play(); if(p&&p.catch) p.catch(()=>{});
+    const playPart=(q,k)=>{ const list=srcs(q); if(k>=list.length){next();return}
+      audioEl.src=list[k]; audioEl.playbackRate=(slow&&k>0)?0.7:(slow?1:S.settings.rate);
+      audioEl.onended=next; audioEl.onerror=()=>playPart(q,k+1);
+      const p=audioEl.play(); if(p&&p.catch) p.catch(err=>{ if(err&&err.name==="NotSupportedError") playPart(q,k+1) });
     };
+    const next=()=>{ if(i>=parts.length) return; playPart(parts[i++],0) };
     next();
   }catch(e){}
 }
@@ -1301,4 +1305,4 @@ render();
 </script>
 
 </body>
-</html> 
+</html>
